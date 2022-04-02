@@ -1,0 +1,238 @@
+{% extends 'instagram/base.html' %} 
+{% load static %}
+
+{% block content %}
+    
+            
+            <div class="container pro-container m-auto">
+                
+                <!-- profile-cover-->
+                <div class="flex lg:flex-row flex-col items-center lg:py-8 lg:space-x-8">
+
+                    <div>
+                        <div class="bg-gradient-to-tr to-pink-600 p-1 rounded-full m-0.5 mr-2  w-56 h-56 relative overflow-hidden uk-transition-toggle">  
+                            {% if profile.img %}
+                                <img src="{{profile.img.url}}" class="bg-gray-200 border-4 border-white rounded-full w-full h-full dark:border-gray-900">
+                            {% else %}
+                                <img src="{% static 'images/people.jpg' %}" class="bg-gray-200 border-4 border-white rounded-full w-full h-full dark:border-gray-900">
+                            {% endif %}
+                            <div class="absolute -bottom-3 custom-overly1 flex justify-center pt-4 pb-7 space-x-3 text-2xl text-white uk-transition-slide-bottom-medium w-full">
+                                <a href="#" class="hover:text-white">
+                                    <i class="uil-camera"></i>
+                                </a>
+                                <a href="#" class="hover:text-white">
+                                    <i class="uil-crop-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:w/8/12 flex-1 flex flex-col lg:items-start items-center"> 
+
+                        <h2 class="font-semibold lg:text-2xl text-lg mb-2">{{profile.username}} {{profile.last_name}}</h2>
+                        {% if profile.bio %}
+                        <p class="lg:text-left mb-2 text-center  dark:text-gray-100">{{profile.bio}}</p>
+                        {% endif %}
+                            {% if user.is_authenticated and user != profile %}
+                            <div class="capitalize flex font-semibold space-x-3 text-center text-sm my-2">
+                                
+                                    {% if follow_status == True %}
+                                        <button onClick="postFollow(this)" class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">Unfollow</button>
+                                    {% else %}
+                                        <button onClick="postFollow(this)" class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">Follow</button>
+                                    {% endif %}
+                                
+                                <a href="#" class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600"> Send message</a>
+                                <div>
+
+                                <a href="#" class="bg-gray-300 flex h-12 h-full items-center justify-center rounded-full text-xl w-9 dark:bg-gray-700"> 
+                                    <i class="icon-feather-chevron-down"></i> 
+                                </a>
+                                    
+                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base dark:bg-gray-900" uk-drop="mode: click">
+                              
+                                  <ul class="space-y-1">
+                                    <li> 
+                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-700">
+                                         <i class="uil-user-minus mr-2"></i>Unfriend
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-700">
+                                         <i class="uil-eye-slash  mr-2"></i>Hide Your Story
+                                        </a> 
+                                    </li>
+                                    <li> 
+                                        <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-700">
+                                         <i class="uil-share-alt mr-2"></i> Share This Profile
+                                        </a> 
+                                    </li>
+                                    <li>
+                                      <hr class="-mx-2 my-2  dark:border-gray-700">
+                                    </li>
+                                    <li> 
+                                        <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                                         <i class="uil-stop-circle mr-2"></i> Block
+                                        </a> 
+                                    </li>
+                                  </ul>
+                              
+                                </div>
+
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            <div class="divide-gray-300 divide-transparent divide-x grid grid-cols-3 lg:text-left lg:text-lg mt-3 text-center w-full dark:text-gray-100">
+                                <div class="flex lg:flex-row flex-col"> {{profile.post_set.count}} <strong class="lg:pl-2">Posts</strong></div>
+                                <div id = "follower_count" class="lg:pl-4 flex lg:flex-row flex-col"> <span>{{follower_count}}</span>  <strong class="lg:pl-2">Followers</strong></div>
+                                <div class="lg:pl-4 flex lg:flex-row flex-col"> {{following_count}} <strong class="lg:pl-2">Following</strong></div>
+                            </div>
+ 
+                    </div>
+
+                    <div class="w-20"></div>
+
+                </div>
+
+                <div class="flex items-center justify-between mt-8 space-x-3">
+                    <h1 class="flex-1 font-extrabold leading-none lg:text-2xl text-lg text-gray-900 tracking-tight uk-heading-line"><span>Explore</span></h1>
+                    <div class="bg-white border border-2 border-gray-300 divide-gray-300 divide-x flex rounded-md shadow-sm dark:bg-gray-100">
+                        <a href="#" class="bg-gray300 flex h-10 items-center justify-center  w-10" data-tippy-placement="top" title="Grid view"> <i class="uil-apps"></i></a>
+                        <a href="#" class="flex h-10 items-center justify-center w-10" data-tippy-placement="top" title="List view"> <i class="uil-list-ul"></i></a>                        
+                    </div>
+                </div>
+
+                <div class="my-6 grid lg:grid-cols-3 grid-cols-2 gap-1.5 hover:text-yellow-700 uk-link-reset">
+                    {% for i in profile_posts %}
+                        <div>
+                            <div class="bg-red-500 max-w-full lg:h-64 h-40 rounded-md relative overflow-hidden uk-transition-toggle" tabindex="0"> 
+                                <img src="{{i.img.url}}" class="w-full h-full inset-0">
+
+                                <div class="absolute bg-black bg-opacity-40 bottom-0 flex h-full items-center justify-center space-x-5 text-lg text-white uk-transition-scale-up w-full">   
+                                    <a href="#story-modal" name="{{i.id}}" onClick="story(this.name)" uk-toggle class="flex items-center"> <ion-icon name="heart" class="mr-1"></ion-icon> 150 </a>
+                                    <a href="#story-modal" name="{{i.id}}" onClick="story(this.name)" uk-toggle class="flex items-center"> <ion-icon name="chatbubble-ellipses" class="mr-1"></ion-icon> 30 </a>
+                                    <a href="#story-modal" name="{{i.id}}" onClick="story(this.name)" uk-toggle class="flex items-center"> <ion-icon name="pricetags" class="mr-1"></ion-icon> 12  </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+
+            </div>
+ 
+
+    
+   <!-- Story modal -->
+    <div id="story-modal" class="uk-modal-container" uk-modal>
+        <!-- story-modal.html -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+            crossorigin="anonymous"></script>
+
+            <script type="text/javascript">
+                window.CSRF_TOKEN = "{{ csrf_token }}"
+                $.ajax({
+                        type:'POST',
+                        url:'{% url "story_modal" %}',
+                        data:
+                        {
+                            click_id:click_name,
+                            csrfmiddlewaretoken: window.CSRF_TOKEN
+                        },
+                        success:function(data){
+                            document.getElementById('story-modal').innerHTML = data;
+                        }
+                    });
+                
+                function postFollow(th){
+                    var $variable = $('#follower_count span').text();
+                    var $userFollowing = $('#userFollowing').text();
+                    if(th.innerText == "Unfollow"){
+                        th.innerHTML= "Follow";
+                        son = 0;
+                        k = parseInt($variable)-1;
+                        kl = parseInt($userFollowing)-1;
+                        $('#follower_count span').html(k);
+                        $('#userFollowing').html(kl);
+                    }
+                    else{
+                        th.innerHTML= "Unfollow";
+                        son=1;
+                        k = parseInt($variable)+1;
+                        kl = parseInt($userFollowing)+1;
+                        $('#follower_count span').html(k);
+                        $('#userFollowing').html(kl);
+                    }
+                    $.ajax({
+                        type:'POST',
+                        url: '{% url "follow" profile %}',
+                        data:{
+                            son:son,
+                            csrfmiddlewaretoken: window.CSRF_TOKEN
+                        },
+                        success:function(){
+                            
+                        }
+                    });
+                }
+                
+                // post detail
+                function story(click_name){
+                    $.ajax({
+                        type:'POST',
+                        url:'{% url "story_modal" %}',
+                        data:
+                        {
+                            click_id:click_name,
+                            csrfmiddlewaretoken: window.CSRF_TOKEN
+                        },
+                        success:function(data){
+                            document.getElementById('story-modal').innerHTML = data;
+                        }
+                    });
+
+                    
+                }
+                
+                // comment list
+                function comment(son){
+                    console.log("LKJHGF");
+                    $.ajax({
+                        type:'POST',
+                        url:'{% url "commentList" %}',
+                        data:
+                        {
+                            post:son,
+                            comment:$('#comment').val(),
+                            csrfmiddlewaretoken: window.CSRF_TOKEN
+                        },
+                        success:function(data){
+                            document.getElementById('comment').value = '';
+                            document.getElementById('commentlist').innerHTML = data;
+                        }
+                    });
+                }
+
+                function like(son){
+                    $.ajax({
+                        type:'POST',
+                        url: '{% url "like" %}',
+                        data:{
+                            post:son,
+                            son:1,
+                            csrfmiddlewaretoken: window.CSRF_TOKEN
+                        },
+                        success:function(data){
+                            document.getElementById('likelar').innerHTML = data;
+                        }
+                    });
+                }
+            </script>
+    
+    
+{% endblock %}
