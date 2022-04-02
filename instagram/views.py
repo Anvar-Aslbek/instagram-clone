@@ -177,4 +177,3 @@ def follow(request, username):
     except Profile.DoesNotExist:
         return HttpResponseRedirect(reverse('profile', args=[username]))
 
-# Salom
