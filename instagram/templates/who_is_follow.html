@@ -3,7 +3,7 @@
 
     <div class="bg-gray-50 dark:bg-gray-800 border-b border-gray-100 flex items-baseline justify-between py-4 px-6 dark:border-gray-800">
         <h2 class="font-semibold text-lg">Who to follow</h2>
-        <a href="#"> Refresh</a>
+        
     </div>
    
     <div class="divide-gray-300 divide-gray-50 divide-opacity-50 divide-y px-4 dark:divide-gray-800 dark:text-gray-100">
@@ -20,16 +20,55 @@
                             {% endif %}
                         </a>
                         <div class="flex flex-col">
-                            <span class="block capitalize font-semibold"> Johnson smith </span>
-                            <span class="block capitalize text-sm"> Australia </span>
+                            {% if i.first_name %}
+                                <span class="block capitalize font-semibold"> {{i.first_name}} {{i.last_name}} </span>
+                            {% else %}
+                                <span class="block capitalize font-semibold"> {{i.username}} </span>
+                            {% endif %}
+                            <span class="block text-sm"> {{i.bio|truncatechars:25}} </span>
                         </div>
                     </div>
                     
-                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 dark:border-gray-800"> Follow </a>
+                    <button id = "{{i.username}}"  onClick="FollowList(this, this.id)" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 dark:border-gray-800 "> Follow </button>
                 </div>
             {% endif %}
         {% endfor %}
         
     </div>
-
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" 
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+            crossorigin="anonymous"></script>
+
+            <script type="text/javascript">
+                window.CSRF_TOKEN = "{{ csrf_token }}"
+                function FollowList(th, username){
+                    console.log("Salom a");
+                    console.log(username);
+                    // th.classList.toggle("colora");
+                    if(th.innerText == "Unfollow"){
+                        th.innerHTML= "Follow";
+                        son = 0;
+                    }
+                    else{
+                        th.innerText= "Unfollow";
+                        son=1;
+                    }
+                    $.ajax({
+                        type:'POST',
+                        url: '{% url "follow" "Aslbek1" %}',
+                        data:{
+                            username:username,
+                            son:son,
+                            csrfmiddlewaretoken: window.CSRF_TOKEN
+                        },
+                        success:function(){
+
+                            
+                        }
+                    });
+                }
+                
+                
+            </script>
