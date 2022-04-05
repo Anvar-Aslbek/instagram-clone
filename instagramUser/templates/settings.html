@@ -1,0 +1,132 @@
+{% extends 'instagram/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container m-auto"> 
+        <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"> Account Setting </h1>
+        <ul class="mt-5 -mr-3 flex-nowrap lg:overflow-hidden overflow-x-scroll uk-tab">
+            <li class="uk-active">
+                <a class="nav-link active" id="edit-profile-tab" data-toggle="tab" href="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="true">Profilni tahrirlash</a>
+            </li>
+            <li>                
+                <a class="nav-link" id="change-password-tab" data-toggle="tab" href="#change-password" role="tab" aria-controls="change-password" aria-selected="false">Parolni o'zgartirish</a>
+            </li>
+        </ul>
+        
+        <div class="grid lg:grid-cols-3 mt-12 gap-8">
+            <div>
+                <h3 class="text-xl mb-2"> Basic</h3>
+                <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+            </div>
+            <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-2 gap-3 lg:p-6 p-4" id="edit-profile">
+                        <div>
+                            <label for=""> First name</label>
+                            {% render_field form.first_name type="text" placeholder="Your name.." class="shadow-none bg-gray-100" %}
+                        </div>
+                        <div>
+                            <label for=""> Last name</label>
+                            {% render_field form.last_name  type="text" placeholder="Your name.." class="shadow-none bg-gray-100" %}
+                        </div>
+                        <div class="col-span-2">
+                            <label for=""> Email</label>
+                            {% render_field form.email type="email" placeholder="Your email.." class="shadow-none bg-gray-100" %}
+                        </div>
+                        <div class="col-span-2">
+                            <label for="about">About me</label> 
+                            {% render_field form.bio id="about" name="about" rows="3"  class="shadow-none bg-gray-100" %}
+                        </div> 
+                        <div class="col-span-2">
+                            <label for=""> Username</label>
+                            {% render_field form.username type="text" placeholder="" class="shadow-none bg-gray-100" %}
+                        </div>
+                        <div>
+                            <label for="img">Image</label>
+                            {% render_field form.img %}
+                        </div>
+                    </div>
+                    <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+                        <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
+                        <button type="submit" class="button bg-blue-700"> Save </button>
+                    </div>
+                </form>
+            </div>
+
+            
+            <!-- <div>
+                <h3 class="text-xl mb-2"> Privacy</h3>
+                <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
+            </div> -->
+            <!-- <div class="bg-white rounded-md lg:shadow-lg shadow lg:p-6 p-4 col-span-2">
+
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4> Who can follow me ?</h4>
+                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                    </div>
+                    <div class="switches-list -mt-8 is-large">
+                        <div class="switch-container">
+                            <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4> Show my activities ?</h4>
+                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                    </div>
+                    <div class="switches-list -mt-8 is-large">
+                        <div class="switch-container">
+                            <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4> Search engines?</h4>
+                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                    </div>
+                    <div class="switches-list -mt-8 is-large">
+                        <div class="switch-container">
+                            <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4> Allow Commenting?</h4>
+                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                    </div>
+                    <div class="switches-list -mt-8 is-large">
+                        <div class="switch-container">
+                            <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div> -->
+
+        </div>
+        <div class="grid lg:grid-cols-3 mt-12 gap-8" id="change-password">
+            <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form1.as_p}}
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}

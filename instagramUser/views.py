@@ -1,7 +1,12 @@
 from django.shortcuts import redirect, render
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm,  UserProfilForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import login
-# Create your views here.
+from .models import Profile
+from django.contrib.auth import update_session_auth_hash
+
+
+
 
 def signup(request):
     if request.method == 'POST':
@@ -23,3 +28,21 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, "login.html", {'form':form})
+
+
+def settings(request, username):
+    user = Profile.objects.get(username = username)
+    if request.method == 'POST':
+        form_password = PasswordChangeForm(user=request.user, data=request.POST)
+        form = UserProfilForm(request.POST,request.FILES, instance=user)
+        if form_password.is_valid():
+            form_password.save()
+            update_session_auth_hash(request, form_password.user)
+            return redirect('profile', username = user.username)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', username = user.username)
+    else:
+        form = UserProfilForm(instance=user)
+        form_password = PasswordChangeForm(user=request.user)
+    return render(request, 'settings.html', {'form': form,'form1':form_password})
