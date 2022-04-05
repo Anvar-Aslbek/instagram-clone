@@ -42,7 +42,8 @@
                             <label for=""> Username</label>
                             {% render_field form.username type="text" placeholder="" class="shadow-none bg-gray-100" %}
                         </div>
-                        <div>
+                        <hr>
+                        <div class="img-upload col-span-2">
                             <label for="img">Image</label>
                             {% render_field form.img %}
                         </div>
@@ -55,72 +56,91 @@
             </div>
 
             
-            <!-- <div>
-                <h3 class="text-xl mb-2"> Privacy</h3>
-                <p> Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit</p>
-            </div> -->
-            <!-- <div class="bg-white rounded-md lg:shadow-lg shadow lg:p-6 p-4 col-span-2">
-
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4> Who can follow me ?</h4>
-                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
-                    </div>
-                    <div class="switches-list -mt-8 is-large">
-                        <div class="switch-container">
-                            <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4> Show my activities ?</h4>
-                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
-                    </div>
-                    <div class="switches-list -mt-8 is-large">
-                        <div class="switch-container">
-                            <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4> Search engines?</h4>
-                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
-                    </div>
-                    <div class="switches-list -mt-8 is-large">
-                        <div class="switch-container">
-                            <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4> Allow Commenting?</h4>
-                        <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
-                    </div>
-                    <div class="switches-list -mt-8 is-large">
-                        <div class="switch-container">
-                            <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <h3 class="text-xl mb-2"> Warning!!!</h3>
+                <p> Yangi passwordga quyiladigan shartlar</p>
+                <p> 1. Passworda kamida 1 ta Katta harf qatnashishi kerak</p>
+                <p> 2. Passworddagi belgilar soni kamida 8 ta bo'lishi kerak</p>
+                <p> 3. Passwordda kamida 1 ta belgi qatnashishi kerak</p>
             </div>
+            <div class="bg-white rounded-md lg:shadow-lg shadow lg:p-6 p-4 col-span-2">
 
-            </div> -->
+                <!-- <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4> Who can follow me ?</h4>
+                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                        </div>
+                        <div class="switches-list -mt-8 is-large">
+                            <div class="switch-container">
+                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4> Show my activities ?</h4>
+                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                        </div>
+                        <div class="switches-list -mt-8 is-large">
+                            <div class="switch-container">
+                                <label class="switch"><input type="checkbox" checked><span class="switch-button"></span> </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4> Search engines?</h4>
+                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                        </div>
+                        <div class="switches-list -mt-8 is-large">
+                            <div class="switch-container">
+                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h4> Allow Commenting?</h4>
+                            <div> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, </div>
+                        </div>
+                        <div class="switches-list -mt-8 is-large">
+                            <div class="switch-container">
+                                <label class="switch"><input type="checkbox"><span class="switch-button"></span> </label>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="old_password">Old password</label>
+                        {% render_field form1.old_password placeholder="old password" name="old_password" class="shadow-none bg-gray-100" %}
+                    </div><br><hr><br>
+                    <div>
+                        <label for="new_password1">New Password</label>
+                        {% render_field form1.new_password1 placeholder="old password" name="new_password1" class="shadow-none bg-gray-100" %}
+                    </div><br><hr><br>
+                    <div>
+                        <label for="new_password2">New password (try)</label>
+                        {% render_field form1.new_password2 name="new_password2" placeholder="old password" class="shadow-none bg-gray-100" %}
+                    </div>
+
+                    <br>
+                    <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+                        <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
+                        <button type="submit" class="button bg-blue-700"> Save </button>
+                    </div>
+                </form>
+            </div>
 
         </div>
         <div class="grid lg:grid-cols-3 mt-12 gap-8" id="change-password">
             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
-                <form method="POST">
-                    {% csrf_token %}
-                    {{form1.as_p}}
-                    <button type="submit">Submit</button>
-                </form>
+                
             </div>
         </div>
 
