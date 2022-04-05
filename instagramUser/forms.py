@@ -1,7 +1,5 @@
-from dataclasses import fields
-from statistics import mode
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from .models import Profile
 
 class SignUpForm(UserCreationForm):
@@ -13,3 +11,10 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = Profile
         fields = ('username','password1')
+
+
+
+class UserProfilForm(UserChangeForm):
+    class Meta(UserChangeForm):
+        model = Profile
+        fields = ('username', 'first_name', 'last_name', 'email','password', 'bio','img')
