@@ -857,6 +857,9 @@ a {
   transition: 0.3s;
   outline: none !important;
 }
+.colora{
+  background-color: #ff006a;
+}
 
 button {
   outline: none !important;

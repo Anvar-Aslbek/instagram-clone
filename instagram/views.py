@@ -158,6 +158,10 @@ def profile(request, username):
 def follow(request, username):
     user = request.user
     option = request.POST.get('son')
+    print(username)
+    if username=="Aslbek1":
+        username = request.POST.get('username')
+    print(username)
     following = get_object_or_404(Profile, username=username)
 
     try:
@@ -173,7 +177,8 @@ def follow(request, username):
                 for post in posts:
                     stream = Stream(post=post, user=user, date=post.created_at, following=following)
                     stream.save()
-        return HttpResponseRedirect(reverse('profile', args=[username]))
+        # return HttpResponseRedirect(reverse('profile', args=[username]))
     except Profile.DoesNotExist:
-        return HttpResponseRedirect(reverse('profile', args=[username]))
+        print("Helloooooooooooooooooo")
+        # return HttpResponseRedirect(reverse('profile', args=[username]))
 
