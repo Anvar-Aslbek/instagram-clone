@@ -4,12 +4,12 @@
 {% block content %}
     <div class="container m-auto"> 
         <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"> Account Setting </h1>
-        <ul class="nav nav-tabs mt-5 -mr-3 flex-nowrap lg:overflow-hidden overflow-x-scroll uk-tab">
-            <li class="uk-active active">
-                <a class="nav-link" data-toggle="tab" href="#home">Profilni tahrirlash</a>
+        <ul class=" mt-5 -mr-3 flex-nowrap lg:overflow-hidden overflow-x-scroll uk-tab">
+            <li class="uk-active ">
+                <a data-toggle="tab" href="#home">Profilni tahrirlash</a>
             </li>
-            <li>                
-                <a class="nav-link" data-toggle="tab" href="#change-password" >Parolni o'zgartirish</a>
+            <li class=" ">                
+                <a data-toggle="tab" href="#change-password" >Parolni o'zgartirish</a>
             </li>
         </ul>
         
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div id="change-password" class="row mt-12 gap-8 tab-pane fade">
+            <div id="change-password" class="row mt-12 tab-pane fade">
                 <div class="col-lg-4">
                     <h3 class="text-xl mb-2"> Warning!!!</h3>
                     <p> Yangi passwordga quyiladigan shartlar</p>
@@ -65,24 +65,23 @@
                     <p> 2. Passworddagi belgilar soni kamida 8 ta bo'lishi kerak</p>
                     <p> 3. Passwordda kamida 1 ta belgi qatnashishi kerak</p>
                 </div>
-                <div class="col-lg-8 bg-white rounded-md lg:shadow-lg shadow p-4">
-    
+                <div class="bg-white rounded-md lg:shadow-lg shadow col-lg-8"> 
                     <form method="POST">
                         {% csrf_token %}
-                        <div>
-                            <label for="old_password">Old password</label>
-                            {% render_field form1.old_password placeholder="old password" name="old_password" class="shadow-none bg-gray-100" %}
-                        </div><br><hr><br>
-                        <div>
-                            <label for="new_password1">New Password</label>
-                            {% render_field form1.new_password1 placeholder="old password" name="new_password1" class="shadow-none bg-gray-100" %}
-                        </div><br><hr><br>
-                        <div>
-                            <label for="new_password2">New password (try)</label>
-                            {% render_field form1.new_password2 name="new_password2" placeholder="old password" class="shadow-none bg-gray-100" %}
+                        <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+                            <div class="col-span-2">
+                                <label for="old_password">Old password</label>
+                                {% render_field form1.old_password placeholder="old password" name="old_password" class="shadow-none bg-gray-100" %}
+                            </div><hr>
+                            <div class="col-span-2">
+                                <label for="new_password1">New Password</label>
+                                {% render_field form1.new_password1 placeholder="old password" name="new_password1" class="shadow-none bg-gray-100" %}
+                            </div><hr>
+                            <div class="col-span-2">
+                                <label for="new_password2">New password (try)</label>
+                                {% render_field form1.new_password2 name="new_password2" placeholder="old password" class="shadow-none bg-gray-100" %}
+                            </div>
                         </div>
-    
-                        <br>
                         <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
                             <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> Cancel </button>
                             <button type="submit" class="button bg-blue-700"> Save </button>
@@ -108,5 +107,7 @@
 
 
 
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 {% endblock %}

@@ -4,6 +4,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import login
 from .models import Profile
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 
 
@@ -29,9 +31,11 @@ def user_login(request):
         form = LoginForm()
     return render(request, "login.html", {'form':form})
 
-
+@login_required(login_url='user_login')
 def settings(request, username):
     user = Profile.objects.get(username = username)
+    if user != request.user:
+        raise Http404("AAAAAAAAAAAAAAAAAAA Siz boshqa joyga kirib ketdingiz")
     if request.method == 'POST':
         form_password = PasswordChangeForm(user=request.user, data=request.POST)
         form = UserProfilForm(request.POST,request.FILES, instance=user)
@@ -46,3 +50,4 @@ def settings(request, username):
         form = UserProfilForm(instance=user)
         form_password = PasswordChangeForm(user=request.user)
     return render(request, 'settings.html', {'form': form,'form1':form_password})
+    

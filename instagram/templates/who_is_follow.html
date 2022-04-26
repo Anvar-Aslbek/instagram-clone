@@ -14,7 +14,7 @@
                     <div class="flex flex-1 items-center space-x-4">
                         <a href="{% url 'profile' i.username %}">
                             {% if i.img %} 
-                                <img src="{{ i.img.url}}" class="bg-gray-200 rounded-full w-10 h-10">
+                                <img src="{{i.img.url}}" class="bg-gray-200 rounded-full w-10 h-10">
                             {% else %}
                                 <img src="{% static 'images/people.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
                             {% endif %}
