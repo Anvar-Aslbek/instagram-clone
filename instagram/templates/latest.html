@@ -1,0 +1,23 @@
+{% load static %}
+<div class="bg-white dark:bg-gray-900 shadow-md rounded-md overflow-hidden">
+
+    <div class="bg-gray-50 border-b border-gray-100 flex items-baseline justify-between py-4 px-6 dark:bg-gray-800 dark:border-gray-700">
+        <h2 class="font-semibold text-lg">Latest</h2>
+        <a href="explore.html"> See all</a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 p-3 uk-link-reset">
+        {% for post in posts %}
+            <div class="bg-red-500 max-w-full h-40 rounded-lg relative overflow-hidden uk-transition-toggle"> 
+                <a href="{% url 'profile' post.profile %}">
+                    <img src="{{post.img.url}}" class="w-full h-full absolute object-cover inset-0">
+                </a>
+                <div class="flex flex-1 justify-around items-center absolute bottom-0 w-full p-2 text-white custom-overly1 uk-transition-slide-bottom-medium">   
+                    <i style="color: rgb(158, 250, 9);" class="uil-heart">{{post.like}}</i> 
+                    <!-- <i class="uil-heart"></i> 30  -->
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
