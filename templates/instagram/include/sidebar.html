@@ -55,7 +55,7 @@
             </div>
         </div>
         <hr class="-mx-4 -mt-1 uk-visible@s">
-        {% with request.resolver_match.url_name as url_name %}
+        {% with request.resolver_match.url_name as url_name %}  <!-- Salom1 -->
         <ul>
             <li class="{% if url_name == 'index' %}active{% endif %}">
                 <a href="{% url 'index' %}"> 
