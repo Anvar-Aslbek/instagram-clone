@@ -182,3 +182,17 @@ def follow(request, username):
         print("Helloooooooooooooooooo")
         # return HttpResponseRedirect(reverse('profile', args=[username]))
 
+
+
+def chat(request):
+    return render(request,'chat.html')
+
+
+def explore(request):
+    return render(request,'explore.html')
+
+def trending(request):
+    return render(request, 'trending.html')
+
+def market(request):
+    return render(request,'market.html')
