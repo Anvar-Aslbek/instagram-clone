@@ -1,0 +1,23 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Post yaratish</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            <li><p>{{form.title}}</p></li>
+            <li><p>{{form.location}}</p></li>
+            <li><p>{{form.img}}</p></li>
+            <li>{{form.tags}}</li>
+        </ul>
+        <button type="submit">Saqlash</button>
+    </form>
+</body>
+</html>

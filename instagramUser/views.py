@@ -1,12 +1,16 @@
 from django.shortcuts import redirect, render
-from .forms import SignUpForm, LoginForm,  UserProfilForm
+
+from instagram.models.post import Post
+from .forms import SignUpForm, LoginForm,  UserProfilForm, PostCreateForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import login
 from .models import Profile
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-
+from instagram.models import Post
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 
 
@@ -51,3 +55,11 @@ def settings(request, username):
         form_password = PasswordChangeForm(user=request.user)
     return render(request, 'settings.html', {'form': form,'form1':form_password})
     
+class CreatePost(CreateView):
+    form_class = PostCreateForm
+    template_name = 'post_create.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user
+        return super().form_valid(form)
